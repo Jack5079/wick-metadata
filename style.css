@@ -50,3 +50,13 @@ label {
 ul {
   margin: 0.2em;
 }
+
+#projects p {
+  color: black;
+}
+
+#placeholder {
+  opacity: 0.5;
+  font-style: italic;
+  color: white !important;
+}

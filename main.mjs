@@ -3,6 +3,7 @@ import scan from './loader.mjs'
 const file = document.getElementById('import')
 
 file.addEventListener('change', () => {
+  if (document.getElementById('placeholder')) document.getElementById('placeholder').remove()
   let projects = [...file.files]
   projects.forEach(async blob=>{
     const project = await scan(blob) // Load it
@@ -18,6 +19,6 @@ file.addEventListener('change', () => {
   info.style.backgroundColor = project.backgroundColor // Change the website's background to match the project's background
 
   info.style.display = 'inline' // so it isn't big
-  document.body.appendChild(info)
+  document.getElementById('projects').appendChild(info)
   })
 })
