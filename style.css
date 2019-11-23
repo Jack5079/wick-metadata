@@ -1,72 +1,48 @@
-* {
-  font-family: 'sans-serif';
+html, body {
+  background: #fff;
+  color: #000;
+  padding: 1em;
+  border-radius: 1em
 }
 
-body {
-  margin-top: 2em;
-  background: black;
-}
-
-input {
-  display: none;
-}
-
-label {
+.circle {
+  background: linear-gradient(to top right, blue, red);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
   top: 0;
-  color: white;
   left: 0;
-  user-select: none;
-  background: linear-gradient(to right, red, rgb(121, 0, 0));
-  text-transform: uppercase;
-  letter-spacing: 1em;
-  cursor: pointer;
-  font-size: 150%;
-  display: block;
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  text-align: center;
-  /* Rounder corners */
-  border-bottom-left-radius: 1em;
-  border-bottom-right-radius: 1em;
+  z-index: -100;
+  display: block
 }
 
 footer {
   margin: 1em;
-  float: right;
-  /* So the text doesn't just move a ton */
-  text-align: right;
+  margin-top: 2em;
+  border-top: 1px solid #000
 }
 
-/* I think it looks nicer this way */
-
-summary {
-  font-style: italic;
+input {
+  display: none
 }
 
-/* Make some space */
-
-details {
-  color: white;
-  margin-bottom: 1em;
+label {
+  text-align: center;
+  border-radius: 10em;
+  overflow: hidden;
+  background: linear-gradient(to top right, blue, red);
+  color: #fff;
+  padding: .5em
 }
 
-/* Replaces the arrow at the start of the summaries */
-
-details>summary:first-of-type::before {
-  content: '🤔';
-  margin: 0.2em;
-  font-style: normal;
-  margin-right: 0.3em;
-  background: white;
-  color: black;
-  font-weight: bold;
-  border-radius: 1em;
-  padding: 0.2em;
-}
-
-details>summary:first-of-type {
-  list-style-type: none;
+@media(prefers-color-scheme:dark) {
+  html, body {
+    color: #fff;
+    background: #000
+  }
+  footer {
+    border-top: 1px solid #fff
+  }
 }
 
 /* Make the default margin bearable */
