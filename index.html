@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible">
+    <title>Wick Editor Metadata Viewer</title>
+
+    <!-- The style -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Import some scripts -->
+    <script src="./main.mjs" type="module" defer></script>
+    <script src="//unpkg.com/browserfs"></script>
+  </head>
+
+  <body>
+
+    <label for="import">
+      upload
+      <input type="file" id="import" accept=".wick" name="import">
+    </label>
+
+
+    <footer>
+      <details>
+        <summary>What does this even do?</summary>
+        This tool lets you see metadata for <a href="//wickeditor.com">Wick Editor</a> projects.
+      </details>
+
+      <details>
+        <summary>Who made this?</summary>
+        Hi! I'm Jack. <a href="//jack5079.github.io/#games">I make</a> <a href="//goldenblast714.github.io/">games</a>
+        sometimes.
+      </details>
+
+      <details>
+        <summary>What projects can I scan?</summary>
+        Projects that fit these critera:
+        <ul>
+          <li>Made in 1.0 or newer</li>
+          <li>File type is a .wick</li>
+        </ul>
+
+      </details>
+
+      <details>
+        <summary>What metadata is shown?</summary>
+        <ul>
+          <li>The project's name</li>
+          <li>The resolution</li>
+          <li>A framerate</li>
+          <li>The browser used to save it</li>
+          <li>The OS that the browser was ran on</li>
+          <li>The background color</li>
+        </ul>
+      </details>
+    </footer>
+  </body>
+
+</html>
