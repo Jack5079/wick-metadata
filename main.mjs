@@ -1,10 +1,11 @@
-import load from './loader.mjs'
+import scan from './loader.mjs'
 
 const file = document.getElementById('import')
 
-file.addEventListener('change', async () => {
-  const blob = file.files[0] // The added file
-  const project = await load(blob) // Load it
+file.addEventListener('change', () => {
+  let projects = [...file.files]
+  projects.forEach(async blob=>{
+    const project = await scan(blob) // Load it
   console.log(project) // Log it for later
   // Now, for displaying this data:
 
@@ -18,4 +19,5 @@ file.addEventListener('change', async () => {
 
   info.style.display = 'inline' // so it isn't big
   document.body.appendChild(info)
+  })
 })
