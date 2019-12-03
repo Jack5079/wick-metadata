@@ -71,7 +71,7 @@ const getProjectFrom = {
    */
   any: async function fromAny(any) {
     if (typeof any === 'string' && isWickLink(any)) return await this.url(any)
-    return await fromFile(any)
+    return await this.file(any)
   }
 }
 
