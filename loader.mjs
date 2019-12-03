@@ -22,7 +22,13 @@ async function fromUrl(url) {
     return await fromWick(blob)
   }
 }
+
+async function fromZip(file) {
+  const zip = await ZipLoader.unzip(file) // Unzip it
+  return await fromWick(new Blob([zip.files['project.wick'].buffer]))
+}
 export {
  fromWick,
- fromUrl
+ fromUrl,
+ fromZip
 }
