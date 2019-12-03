@@ -1,4 +1,4 @@
-import scan from './loader.mjs'
+import {fromWick as scan} from './loader.mjs'
 
 const file = document.getElementById('import')
 

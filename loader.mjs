@@ -8,17 +8,21 @@ function isWickLink (str) { // Check if it's correct
   } else return false
 }
 
-export default async file => {
-  if (Blob.prototype.isPrototypeOf(file)) { // If it's a Blob
-   const zip = await ZipLoader.unzip(file) // Unzip it
-    const { project } = zip.extractAsJSON('project.json') // Get the project data
-    return project
-  } else if (typeof file === 'string' && isWickLink(file)) {  // If it's a URL
-    const res = await fetch(file) // Get that
+async function fromWick(file) {
+  const zip = await ZipLoader.unzip(file) // Unzip it
+  const { project } = zip.extractAsJSON('project.json') // Get the project data
+  return project
+}
+
+async function fromUrl(url) {
+  if (typeof file === 'string' && isWickLink(url)) {  // If it's a URL
+    const res = await fetch(url) // Get that
     const blob = await res.blob() // Get the blob
 
-    const zip = await ZipLoader.unzip(blob) // Unzip it
-    const { project } = zip.extractAsJSON('project.json') // Get the project data
-    return project
+    return await fromWick(blob)
   }
+}
+export {
+ fromWick,
+ fromUrl
 }
