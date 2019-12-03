@@ -14,18 +14,18 @@ function isWickLink (str) { // Check if it's correct
   } else return false
 }
 
-const getProjectFrom = {
+class getProjectFrom {
   /**
    * Gets info about .wick files
    *
    * @param {Blob} file A .wick file
    * @returns {Object} The project data
    */
-  wick: async function (file) {
+  static async wick (file) {
     const zip = await ZipLoader.unzip(file) // Unzip it
     const { project } = zip.extractAsJSON('project.json') // Get the project data
     return project
-  },
+  }
 
   /**
    * Downloads project data from the internet
@@ -33,14 +33,14 @@ const getProjectFrom = {
    * @param {String} url A url to a .wick (.zip coming soon)
    * @returns {Object} The project data
    */
-  url: async function (url) {
+  static async url (url) {
     if (typeof url === 'string' && isWickLink(url)) {  // If it's a URL
       const res = await fetch(url) // Get that
       const blob = await res.blob() // Get the blob
 
       return await this.wick(blob)
     }
-  },
+  }
 
   /**
    * Get project data from a .zip file
@@ -48,10 +48,10 @@ const getProjectFrom = {
    * @param {Blob} file A .zip file with a project.wick file in it
    * @returns {Object} The project data
    */
-  zip: async function (file) {
+  static async zip (file) {
     const zip = await ZipLoader.unzip(file) // Unzip it
     return await this.wick(new Blob([zip.files['project.wick'].buffer]))
-  },
+  }
 
   /**
    * Get project data from a .zip file or .wick
@@ -59,17 +59,17 @@ const getProjectFrom = {
    * @param {Blob} file A .zip file with a project.wick file in it, or project.wick
    * @returns {Object} The project data
    */
-  file: async function =(file) {
+  static async file (file) {
     if (file.name.endsWith('.wick')) return await this.wick(file)
     if (file.name.endsWith('.zip')) return await this.zip(file)
-  },
+  }
 
   /**
    * 
    * @param {String|Blob} URL, .wick, or .zip
    * @returns {Object} Project data
    */
-  any: async function (any) {
+  async constructor (any) {
     if (typeof any === 'string' && isWickLink(any)) return await this.url(any)
     return await this.file(any)
   }
