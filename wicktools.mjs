@@ -38,7 +38,7 @@ const getProjectFrom = {
       const res = await fetch(url) // Get that
       const blob = await res.blob() // Get the blob
 
-      return await fromWick(blob)
+      return await this.wick(blob)
     }
   },
 
@@ -50,7 +50,7 @@ const getProjectFrom = {
    */
   zip: async function fromZip(file) {
     const zip = await ZipLoader.unzip(file) // Unzip it
-    return await fromWick(new Blob([zip.files['project.wick'].buffer]))
+    return await this.wick(new Blob([zip.files['project.wick'].buffer]))
   }
 }
 
