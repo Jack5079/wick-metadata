@@ -1,7 +1,7 @@
 import ZipLoader from 'https://cdn.pika.dev/zip-loader/^1.1.0';
 function isWickLink (str) { // Check if it's correct
   if (str.startsWith('javascript:')) return false
-  if (str.endsWith('.html') || str.endsWith('.wick')) {
+  if (str.endsWith('.wick')) {
     var a = document.createElement('a');
     a.href = str;
     return (a.host && a.host != window.location.host);
