@@ -34,7 +34,7 @@ const getProjectFrom = {
    * @returns {Object} The project data
    */
   url: async function fromUrl(url) {
-    if (typeof file === 'string' && isWickLink(url)) {  // If it's a URL
+    if (typeof url === 'string' && isWickLink(url)) {  // If it's a URL
       const res = await fetch(url) // Get that
       const blob = await res.blob() // Get the blob
 
@@ -62,6 +62,16 @@ const getProjectFrom = {
   file: async function fromFile(file) {
     if (file.name.endsWith('.wick')) return await this.wick(file)
     if (file.name.endsWith('.zip')) return await this.zip(file)
+  },
+
+  /**
+   * 
+   * @param {String|Blob} URL, .wick, or .zip
+   * @returns {Object} Project data
+   */
+  any: async function fromAny(any) {
+    if (typeof any === 'string' && isWickLink(any)) return await this.url(any)
+    return await fromFile(any)
   }
 }
 
