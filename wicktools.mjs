@@ -1,3 +1,4 @@
+/** @requires ZipLoader */
 import ZipLoader from 'https://cdn.pika.dev/zip-loader/^1.1.0';
 /**
  * Checks if a link is a correct Wick Editor link.
