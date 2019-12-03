@@ -21,7 +21,7 @@ const getProjectFrom = {
    * @param {Blob} file A .wick file
    * @returns {Object} The project data
    */
-  wick: async function fromWick(file) {
+  wick: async function (file) {
     const zip = await ZipLoader.unzip(file) // Unzip it
     const { project } = zip.extractAsJSON('project.json') // Get the project data
     return project
@@ -33,7 +33,7 @@ const getProjectFrom = {
    * @param {String} url A url to a .wick (.zip coming soon)
    * @returns {Object} The project data
    */
-  url: async function fromUrl(url) {
+  url: async function (url) {
     if (typeof url === 'string' && isWickLink(url)) {  // If it's a URL
       const res = await fetch(url) // Get that
       const blob = await res.blob() // Get the blob
@@ -48,7 +48,7 @@ const getProjectFrom = {
    * @param {Blob} file A .zip file with a project.wick file in it
    * @returns {Object} The project data
    */
-  zip: async function fromZip(file) {
+  zip: async function (file) {
     const zip = await ZipLoader.unzip(file) // Unzip it
     return await this.wick(new Blob([zip.files['project.wick'].buffer]))
   },
@@ -59,7 +59,7 @@ const getProjectFrom = {
    * @param {Blob} file A .zip file with a project.wick file in it, or project.wick
    * @returns {Object} The project data
    */
-  file: async function fromFile(file) {
+  file: async function =(file) {
     if (file.name.endsWith('.wick')) return await this.wick(file)
     if (file.name.endsWith('.zip')) return await this.zip(file)
   },
@@ -69,7 +69,7 @@ const getProjectFrom = {
    * @param {String|Blob} URL, .wick, or .zip
    * @returns {Object} Project data
    */
-  any: async function fromAny(any) {
+  any: async function (any) {
     if (typeof any === 'string' && isWickLink(any)) return await this.url(any)
     return await this.file(any)
   }
