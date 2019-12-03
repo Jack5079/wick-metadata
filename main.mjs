@@ -1,4 +1,4 @@
-import {fromWick as scan, fromZip as zip} from './loader.mjs'
+import {getProjectFrom} from './wicktools.mjs'
 
 const file = document.getElementById('import')
 
@@ -8,9 +8,9 @@ file.addEventListener('change', () => {
   projects.forEach(async blob=>{
     let project
     if (blob.name.endsWith('.wick')) {
-    project = await scan(blob) // Load it
+    project = await getProjectFrom.wick(blob) // Load it
     } else if (blob.name.endsWith('.zip')) {
-    project = await zip(blob)
+    project = await getProjectFrom.zip(blob)
     }
   console.log(project) // Log it for later
   // Now, for displaying this data:
