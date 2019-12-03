@@ -6,12 +6,7 @@ file.addEventListener('change', () => {
   if (document.getElementById('placeholder')) document.getElementById('placeholder').remove()
   let projects = [...file.files]
   projects.forEach(async blob=>{
-    let project
-    if (blob.name.endsWith('.wick')) {
-    project = await getProjectFrom.wick(blob) // Load it
-    } else if (blob.name.endsWith('.zip')) {
-    project = await getProjectFrom.zip(blob)
-    }
+    let project  = await getProjectFrom.file(blob) // Load it
   console.log(project) // Log it for later
   // Now, for displaying this data:
 
