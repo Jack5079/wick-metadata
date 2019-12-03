@@ -38,7 +38,7 @@ class getProjectFrom {
       const res = await fetch(url) // Get that
       const blob = await res.blob() // Get the blob
 
-      return await this.wick(blob)
+      return await getProjectFrom.wick(blob)
     }
   }
 
@@ -50,7 +50,7 @@ class getProjectFrom {
    */
   static async zip (file) {
     const zip = await ZipLoader.unzip(file) // Unzip it
-    return await this.wick(new Blob([zip.files['project.wick'].buffer]))
+    return await getProjectFrom.wick(new Blob([zip.files['project.wick'].buffer]))
   }
 
   /**
@@ -60,21 +60,23 @@ class getProjectFrom {
    * @returns {Object} The project data
    */
   static async file (file) {
-    if (file.name.endsWith('.wick')) return await this.wick(file)
-    if (file.name.endsWith('.zip')) return await this.zip(file)
+    if (file.name.endsWith('.wick')) return await getProjectFrom.wick(file)
+    if (file.name.endsWith('.zip')) return await getProjectFrom.zip(file)
   }
+}
+class Project {
 
   /**
    * 
    * @param {String|Blob} URL, .wick, or .zip
    * @returns {Object} Project data
    */
-  async constructor (any) {
-    if (typeof any === 'string' && isWickLink(any)) return await this.url(any)
-    return await this.file(any)
+  static async from (any) {
+    if (typeof any === 'string' && isWickLink(any)) return await getProjectFrom.url(any)
+    return await getProjectFrom.file(any)
   }
 }
 
 export {
-  getProjectFrom
+  Project
 }

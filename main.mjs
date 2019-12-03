@@ -1,4 +1,4 @@
-import {getProjectFrom} from './wicktools.mjs'
+import {Project} from './wicktools.mjs'
 
 const file = document.getElementById('import')
 
@@ -6,7 +6,7 @@ file.addEventListener('change', () => {
   if (document.getElementById('placeholder')) document.getElementById('placeholder').remove()
   let projects = [...file.files]
   projects.forEach(async blob=>{
-    let project  = await getProjectFrom.file(blob) // Load it
+    let project  = await Project.from(blob) // Load it
   console.log(project) // Log it for later
   // Now, for displaying this data:
 
