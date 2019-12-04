@@ -16,9 +16,10 @@ class Project {
    */
   constructor (file) {
     if (file.constructor != File && file.constructor != Blob) throw new Error('Must be a Blob or File!')
+    
    return (async ()=>{
-      if (file.name.endsWith('.wick')) return await wick(file)
-      if (file.name.endsWith('.zip')) return await wick(new Blob([( await ZipLoader.unzip(file)).files['project.wick'].buffer]))
+      if (file.name.endsWith('.wick')) return Object.setPrototypeOf(await wick(file), Project.prototype)
+      if (file.name.endsWith('.zip')) return Object.setPrototypeOf(await wick(new Blob([( await ZipLoader.unzip(file)).files['project.wick'].buffer])), Project.prototype)
    })()
   }
 }
