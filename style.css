@@ -11,15 +11,6 @@ label {
   padding: .5em
 }
 
-@media(prefers-color-scheme:dark) {
-  html, body {
-    color: #fff;
-    background: #000
-  }
-  footer {
-    border-top: 1px solid #fff
-  }
-}
 
 /* Make the default margin bearable */
 
