@@ -14,6 +14,7 @@ async function html (file) {
     reader.onload = async function() {
           eval(reader.result.split('\n').filter(h=>h.includes('INJECTED_WICKPROJECT_DATA'))[0]) // now we have the project data
     let file = await (await fetch(`data:application/zip;base64,${INJECTED_WICKPROJECT_DATA}`)).blob()
+    delete globalThis.INJECTED_WICKPROJECT_DATA // remove it now that we're done
     resolve(file)
     }
   })
