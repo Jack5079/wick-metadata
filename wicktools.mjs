@@ -14,17 +14,17 @@ async function wick (file) {
 }
 
 /**
- * .html -> .wick
+ * .html -> {...}
  *
  * @param {Blob|File} file The .html to get the .wick from
  * @returns {Blob} The .wick file
  */
-async function html (file) {
+async function htmlobj (file) {
     let text = await file.text()
     eval(text.split('\n').filter(h=>h.includes('INJECTED_WICKPROJECT_DATA'))[0]) // now we have the project data
     let result = await (await fetch(`data:application/zip;base64,${INJECTED_WICKPROJECT_DATA}`)).blob()
     delete globalThis.INJECTED_WICKPROJECT_DATA // remove it now that we're done
-    return result
+    return await wick(result)
 }
 
 class Project {
@@ -41,7 +41,7 @@ class Project {
    return (async ()=>{
       if (file.type == 'application/x-zip-compressed') return Object.setPrototypeOf(await wick(new Blob([( await ZipLoader.unzip(file)).files['project.wick'].buffer])), Project.prototype)
       if (file.name.endsWith('.wick')) return Object.setPrototypeOf(await wick(file), Project.prototype)
-      if (file.type == 'text/html') return Object.setPrototypeOf(await wick(await html(file)), Project.prototype)
+      if (file.type == 'text/html') return Object.setPrototypeOf(await htmlobj(file), Project.prototype)
       throw new Error('Must be a .zip, .wick, or .html!')
    })()
   }
