@@ -18,10 +18,7 @@ class Project {
     if (file.constructor != File && file.constructor != Blob) throw new Error('Must be a Blob or File!')
    return (async ()=>{
       if (file.name.endsWith('.wick')) return await wick(file)
-      if (file.name.endsWith('.zip')) {
-        const zip = await ZipLoader.unzip(file) // Unzip it
-        return await wick(new Blob([zip.files['project.wick'].buffer]))
-      }
+      if (file.name.endsWith('.zip')) return await wick(new Blob([( await ZipLoader.unzip(file)).files['project.wick'].buffer]))
    })()
   }
 }
