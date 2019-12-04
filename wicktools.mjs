@@ -1,19 +1,5 @@
 /** @requires ZipLoader */
 import ZipLoader from 'https://cdn.pika.dev/zip-loader/^1.1.0';
-/**
- * Checks if a link is a correct Wick Editor link.
- *
- * @param {String} str
- * @returns {Boolean} Returns if it's a good link
- */
-function isWickLink (str) { // Check if it's correct
-  if (str.startsWith('javascript:')) return false
-  if (str.endsWith('.wick')) {
-    var a = document.createElement('a');
-    a.href = str;
-    return (a.host && a.host != window.location.host);
-  } else return false
-}
 
 class getProjectFrom {
   /**
@@ -49,9 +35,10 @@ class Project {
    * @returns {Object} Project data
    */
   constructor (file) {
+    if (file.constructor != File && file.constructor != Blob) throw new Error('Must be a Blob or File!')
    return (async ()=>{
-    if (file.name.endsWith('.wick')) return await getProjectFrom.wick(file)
-    if (file.name.endsWith('.zip')) return await getProjectFrom.zip(file)
+      if (file.name.endsWith('.wick')) return await getProjectFrom.wick(file)
+      if (file.name.endsWith('.zip')) return await getProjectFrom.zip(file)
    })()
   }
 }
