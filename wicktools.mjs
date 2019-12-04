@@ -1,5 +1,5 @@
 /** @requires ZipLoader */
-import ZipLoader from 'https://cdn.pika.dev/zip-loader/^1.1.0';
+import ZipLoader from 'https://cdn.pika.dev/zip-loader';
 
 async function wick (file) {
     const zip = await ZipLoader.unzip(file) // Unzip it
