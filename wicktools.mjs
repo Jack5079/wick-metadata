@@ -33,9 +33,9 @@ class Project {
     
    return (async ()=>{
       if (file.type == 'application/x-zip-compressed') return Object.setPrototypeOf(await wick(new Blob([( await ZipLoader.unzip(file)).files['project.wick'].buffer])), Project.prototype)
-      
       if (file.name.endsWith('.wick')) return Object.setPrototypeOf(await wick(file), Project.prototype)
       if (file.type == 'text/html') return Object.setPrototypeOf(await wick(await html(file)), Project.prototype)
+      throw new Error('Must be a .zip, .wick, or .html!')
    })()
   }
 }
