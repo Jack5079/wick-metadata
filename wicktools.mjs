@@ -16,8 +16,8 @@ async function wick (file) {
 /**
  * .html -> {...}
  *
- * @param {Blob|File} file The .html to get the .wick from
- * @returns {Blob} The .wick file
+ * @param {Blob|File} file The .html to get the JSON from
+ * @returns {Object} JSON of the project
  */
 async function htmlobj (file) {
     let text = await file.text()
@@ -25,6 +25,18 @@ async function htmlobj (file) {
     let result = await (await fetch(`data:application/zip;base64,${INJECTED_WICKPROJECT_DATA}`)).blob()
     delete globalThis.INJECTED_WICKPROJECT_DATA // remove it now that we're done
     return await wick(result)
+}
+
+/**
+ * .zip -> {...}
+ *
+ * @param {Blob|File} file The .zip to get the JSON from
+ * @returns {Object} JSON of the project
+ */
+async function zip (file) {
+  let buffer = (await ZipLoader.unzip(file)).files['project.wick'].buffer
+  let wickfile = new Blob([buffer])
+  return await wick(wickfile)
 }
 
 class Project {
@@ -39,7 +51,7 @@ class Project {
     if (file.constructor != File && file.constructor != Blob) throw new Error('Must be a Blob or File!')
     
    return (async ()=>{
-      if (file.type == 'application/x-zip-compressed') return Object.setPrototypeOf(await wick(new Blob([( await ZipLoader.unzip(file)).files['project.wick'].buffer])), Project.prototype)
+      if (file.type == 'application/x-zip-compressed') return Object.setPrototypeOf(await zip(file), Project.prototype)
       if (file.name.endsWith('.wick')) return Object.setPrototypeOf(await wick(file), Project.prototype)
       if (file.type == 'text/html') return Object.setPrototypeOf(await htmlobj(file), Project.prototype)
       throw new Error('Must be a .zip, .wick, or .html!')
