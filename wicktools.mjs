@@ -1,12 +1,24 @@
 /** @requires ZipLoader */
 import ZipLoader from 'https://cdn.pika.dev/zip-loader';
 
+/**
+ * .wick -> {...}
+ *
+ * @param {Blob|File} file A .wick file
+ * @returns {Object} JSON of the project
+ */
 async function wick (file) {
     const zip = await ZipLoader.unzip(file) // Unzip it
     const { project } = zip.extractAsJSON('project.json') // Get the project data
     return project
 }
 
+/**
+ * .html -> .wick
+ *
+ * @param {Blob|File} file The .html to get the .wick from
+ * @returns {Blob} The .wick file
+ */
 async function html (file) {
   var reader = new FileReader();
   reader.readAsText(file);
@@ -25,8 +37,9 @@ async function html (file) {
 class Project {
 
   /**
+   * Wick Editor projects -> {...}
    * 
-   * @param {String|Blob} .wick, or .zip
+   * @param {String|Blob} .wick, .html, or .zip
    * @returns {Object} Project data
    */
   constructor (file) {
