@@ -7,6 +7,20 @@ async function wick (file) {
     return project
 }
 
+async function html (file) {
+  var reader = new FileReader();
+  reader.readAsText(file);
+  const result = await new Promise((resolve) => {
+    reader.onload = async function() {
+          eval(reader.result.split('\n').filter(h=>h.includes('INJECTED_WICKPROJECT_DATA'))[0]) // now we have the project data
+    let file = await (await fetch(`data:application/zip;base64,${INJECTED_WICKPROJECT_DATA}`)).blob()
+    resolve(file)
+    }
+  })
+
+  return result
+}
+
 class Project {
 
   /**
@@ -21,6 +35,7 @@ class Project {
       if (file.type == 'application/x-zip-compressed') return Object.setPrototypeOf(await wick(new Blob([( await ZipLoader.unzip(file)).files['project.wick'].buffer])), Project.prototype)
       
       if (file.name.endsWith('.wick')) return Object.setPrototypeOf(await wick(file), Project.prototype)
+      if (file.type == 'text/html') return Object.setPrototypeOf(await wick(await html(file)), Project.prototype)
    })()
   }
 }
