@@ -59,6 +59,12 @@ class Project {
   }
 }
 
+
+const toWick = {
+  htmlobj,
+  zip
+}
 export {
-  Project
+  Project,
+  toWick
 }
