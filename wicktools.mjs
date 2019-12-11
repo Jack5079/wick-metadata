@@ -1,5 +1,6 @@
+/* global Blob, globalThis, File, fetch */
 /** @requires ZipLoader */
-import ZipLoader from 'https://cdn.pika.dev/zip-loader';
+import ZipLoader from 'https://cdn.pika.dev/zip-loader'
 
 /**
  * .wick -> {...}
@@ -8,10 +9,10 @@ import ZipLoader from 'https://cdn.pika.dev/zip-loader';
  * @returns {Object} JSON of the project
  */
 async function wick (file) {
-    const zip = await ZipLoader.unzip(file) // Unzip it
-    const { project } = zip.extractAsJSON('project.json') // Get the project data
-    project.file = file // just for redownloading
-    return project
+  const zip = await ZipLoader.unzip(file) // Unzip it
+  const { project } = zip.extractAsJSON('project.json') // Get the project data
+  project.file = file // just for redownloading
+  return project
 }
 
 /**
@@ -21,11 +22,17 @@ async function wick (file) {
  * @returns {Blob} .wick Blob
  */
 async function htmlobj (file) {
-    let text = await file.text()
-    eval(text.split('\n').filter(h=>h.includes('INJECTED_WICKPROJECT_DATA'))[0]) // now we have the project data
-    let result = await (await fetch(`data:application/zip;base64,${INJECTED_WICKPROJECT_DATA}`)).blob()
-    delete globalThis.INJECTED_WICKPROJECT_DATA // remove it now that we're done
-    return result
+  const text = await file.text()
+  const INJECTED_WICKPROJECT_DATA = (text
+    .split('\n') // array of lines
+    .filter(h => h.includes('INJECTED_WICKPROJECT_DATA'))[0]) // only the line of code we want
+    .replace(/'/g, '') // remove quotes
+    .replace('window.INJECTED_WICKPROJECT_DATA =', '') // remove opening
+    .replace(/\s/g, '') // remove whitespace
+    .replace(';', '') // remove ending semicolon
+  const result = await (await fetch(`data:application/zip;base64,${INJECTED_WICKPROJECT_DATA}`)).blob()
+  delete globalThis.INJECTED_WICKPROJECT_DATA // remove it now that we're done
+  return result
 }
 
 /**
@@ -35,32 +42,30 @@ async function htmlobj (file) {
  * @returns {Blob} .wick Blob
  */
 async function zip (file) {
-  let buffer = (await ZipLoader.unzip(file)).files['project.wick'].buffer
-  let wickfile = new Blob([buffer])
+  const buffer = (await ZipLoader.unzip(file)).files['project.wick'].buffer
+  const wickfile = new Blob([buffer])
   return wickfile
 }
 
 class Project {
-
   /**
    * Wick Editor projects -> {...}
-   * 
+   *
    * @param {String|Blob} .wick, .html, or .zip
    * @returns {Object} Project data
    */
   constructor (file) {
     if (!(file instanceof File)) throw new Error('Must be a File!')
-    
-   return (async ()=>{
-      if (file.type == 'application/x-zip-compressed') return Object.setPrototypeOf(await wick(await zip(file)), Project.prototype)
+
+    return (async () => {
+      if (file.type === 'application/x-zip-compressed') return Object.setPrototypeOf(await wick(await zip(file)), Project.prototype)
       if (file.name.endsWith('.wick')) return Object.setPrototypeOf(await wick(file), Project.prototype)
-      if (file.type == 'text/html') return Object.setPrototypeOf(await wick(await htmlobj(file)), Project.prototype)
+      if (file.type === 'text/html') return Object.setPrototypeOf(await wick(await htmlobj(file)), Project.prototype)
       throw new Error('Must be a .zip, .wick, or .html!')
-   })()
+    })()
   }
 
-
-  download() {
+  download () {
     const link = document.createElement('a')
     link.href = URL.createObjectURL(this.file)
     link.download = this.name + '.wick'
