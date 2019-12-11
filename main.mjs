@@ -18,6 +18,20 @@ file.addEventListener('change', () => {
   info.style.backgroundColor = project.backgroundColor // Change the website's background to match the project's background
 
   info.style.display = 'inline' // so it isn't big
-  document.getElementById('projects').appendChild(info)
+
+  const button = document.createElement('button') // make a button
+  button.innerText = 'Redownload' // set some text
+  button.addEventListener('click', _=>{ // on click
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(project.file)
+    link.download = project.name + '.wick'
+    link.display = 'none'
+    document.body.appendChild(link)
+    link.click()
+    URL.revokeObjectURL(link.href)
+  })
+  document.getElementById('projects').appendChild(info) 
+  
+  document.getElementById('projects').appendChild(button)
   })
 })

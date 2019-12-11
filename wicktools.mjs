@@ -10,6 +10,7 @@ import ZipLoader from 'https://cdn.pika.dev/zip-loader';
 async function wick (file) {
     const zip = await ZipLoader.unzip(file) // Unzip it
     const { project } = zip.extractAsJSON('project.json') // Get the project data
+    project.file = file // just for redownloading
     return project
 }
 
