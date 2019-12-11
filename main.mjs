@@ -1,4 +1,4 @@
-import {Project} from './wicktools.mjs'
+import Project from './wicktools.mjs'
 
 const file = document.getElementById('import')
 

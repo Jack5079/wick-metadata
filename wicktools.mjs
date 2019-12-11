@@ -71,12 +71,4 @@ class Project {
   }
 }
 
-
-const toWick = {
-  htmlobj,
-  zip
-}
-export {
-  Project,
-  toWick
-}
+export default Project
