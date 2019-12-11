@@ -58,6 +58,17 @@ class Project {
       throw new Error('Must be a .zip, .wick, or .html!')
    })()
   }
+
+
+  download() {
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(this.file)
+    link.download = this.name + '.wick'
+    link.display = 'none'
+    document.body.appendChild(link)
+    link.click()
+    URL.revokeObjectURL(link.href)
+  }
 }
 
 

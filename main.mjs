@@ -22,13 +22,7 @@ file.addEventListener('change', () => {
   const button = document.createElement('button') // make a button
   button.innerText = 'Redownload' // set some text
   button.addEventListener('click', _=>{ // on click
-    const link = document.createElement('a')
-    link.href = URL.createObjectURL(project.file)
-    link.download = project.name + '.wick'
-    link.display = 'none'
-    document.body.appendChild(link)
-    link.click()
-    URL.revokeObjectURL(link.href)
+    project.download()
   })
   document.getElementById('projects').appendChild(info) 
   
