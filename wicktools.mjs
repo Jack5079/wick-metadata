@@ -1,4 +1,4 @@
-/* global Blob, globalThis, File, fetch */
+/* global Blob, File, fetch */
 /** @requires ZipLoader */
 import ZipLoader from 'https://cdn.pika.dev/zip-loader'
 
@@ -31,7 +31,6 @@ async function htmlobj (file) {
     .replace(/\s/g, '') // remove whitespace
     .replace(';', '') // remove ending semicolon
   const result = await (await fetch(`data:application/zip;base64,${INJECTED_WICKPROJECT_DATA}`)).blob()
-  delete globalThis.INJECTED_WICKPROJECT_DATA // remove it now that we're done
   return result
 }
 
