@@ -49,7 +49,7 @@ class Project {
    * @returns {Object} Project data
    */
   constructor (file) {
-    if (file.constructor != File && file.constructor != Blob) throw new Error('Must be a Blob or File!')
+    if (!(file instanceof File)) throw new Error('Must be a File!')
     
    return (async ()=>{
       if (file.type == 'application/x-zip-compressed') return Object.setPrototypeOf(await wick(await zip(file)), Project.prototype)
