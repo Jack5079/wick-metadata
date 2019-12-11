@@ -23,9 +23,10 @@ async function wick (file) {
  */
 async function htmlobj (file) {
   const text = await file.text()
-  const INJECTED_WICKPROJECT_DATA = (text
+  const INJECTED_WICKPROJECT_DATA = text
     .split('\n') // array of lines
-    .filter(h => h.includes('INJECTED_WICKPROJECT_DATA'))[0]) // only the line of code we want
+    .find(h => h.includes('INJECTED_WICKPROJECT_DATA')) // only the line of code we want
+    // Now for stripping it down to only the data
     .replace(/'/g, '') // remove quotes
     .replace('window.INJECTED_WICKPROJECT_DATA =', '') // remove opening
     .replace(/\s/g, '') // remove whitespace
