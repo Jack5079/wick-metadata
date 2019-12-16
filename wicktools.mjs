@@ -61,10 +61,10 @@ class Project {
     return (async () => {
       if (file.type === 'application/x-zip-compressed') {
         // For .zip
+        // Add prototype to JSON
         return Object.setPrototypeOf(
-          // Add prototype to JSON
+          // Convert wick to JSON
           await wick(
-            // Convert wick to JSON
             await zip(file) // Convert .zip to .wick
           ),
           Project.prototype
@@ -72,8 +72,8 @@ class Project {
       }
       if (file.name.endsWith('.wick')) {
         // For .wick
+        // Add prototype to JSON
         return Object.setPrototypeOf(
-          // Add prototype to JSON
           await wick(file), // Convert .wick to JSON
           Project.prototype
         )
@@ -81,12 +81,12 @@ class Project {
       const text = await file.text()
       if (html.test(text)) {
         // If it's HTML
+        // Add prototype to JSON
         return Object.setPrototypeOf(
-          // Add prototype to JSON
+          // Convert wick to JSON
           await wick(
-            // Convert wick to JSON
+            // Convert HTML text to .wick
             await htmlobj(
-              // Convert HTML text to .wick
               await file.text() // convert blob to html text
             )
           ),
