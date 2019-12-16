@@ -57,14 +57,23 @@ class Project {
     if (!(file instanceof File)) throw new Error('Must be a File!')
 
     return (async () => {
-      if (file.type === 'application/x-zip-compressed') return Object.setPrototypeOf(await wick(await zip(file)), Project.prototype)
-      if (file.name.endsWith('.wick')) return Object.setPrototypeOf(await wick(file), Project.prototype)
-      if (file.type === 'text/html') {
+      if (file.type === 'application/x-zip-compressed') { // For .zip
+        return Object.setPrototypeOf( // Add prototype to JSON
+          await wick( // Convert wick to JSON
+            await zip(file) // Convert .zip to .wick
+          ), Project.prototype)
+      }
+      if (file.name.endsWith('.wick')) { // For .wick
+        return Object.setPrototypeOf( // Add prototype to JSON
+          await wick(file) // Convert .wick to JSON
+        , Project.prototype)
+      }
+      if (file.type === 'text/html') { // For .html
         return Object.setPrototypeOf( // Add prototype to JSON
           await wick( // Convert wick to JSON
             await htmlobj( // Convert HTML text to .wick
               await file.text() // convert blob to html text
-              )
+            )
           ), Project.prototype)
       }
       throw new Error('Must be a .zip, .wick, or .html!')
