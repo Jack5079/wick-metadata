@@ -18,11 +18,10 @@ async function wick (file) {
 /**
  * .html -> .wick
  *
- * @param {Blob|File} file The .html to get the JSON from
+ * @param {String} text The .html string to get the JSON from
  * @returns {Blob} .wick Blob
  */
-async function htmlobj (file) {
-  const text = await file.text()
+async function htmlobj (text) {
   const INJECTED_WICKPROJECT_DATA = text
     .split('\n') // array of lines
     .find(h => h.includes('INJECTED_WICKPROJECT_DATA')) // only the line of code we want
@@ -60,7 +59,7 @@ class Project {
     return (async () => {
       if (file.type === 'application/x-zip-compressed') return Object.setPrototypeOf(await wick(await zip(file)), Project.prototype)
       if (file.name.endsWith('.wick')) return Object.setPrototypeOf(await wick(file), Project.prototype)
-      if (file.type === 'text/html') return Object.setPrototypeOf(await wick(await htmlobj(file)), Project.prototype)
+      if (file.type === 'text/html') return Object.setPrototypeOf(await wick(await htmlobj(await file.text())), Project.prototype)
       throw new Error('Must be a .zip, .wick, or .html!')
     })()
   }
