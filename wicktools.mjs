@@ -50,7 +50,7 @@ class Project {
   /**
    * Wick Editor projects -> {...}
    *
-   * @param {Blob} .wick, .html, or .zip
+   * @param {File} .wick, .html, or .zip
    * @returns {Project} Project data
    */
   constructor (file) {
