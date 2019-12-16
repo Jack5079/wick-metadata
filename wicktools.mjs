@@ -29,7 +29,7 @@ async function htmlobj (file) {
     // Now for stripping it down to only the data
     .replace(/'/g, '') // remove quotes
     .replace('window.INJECTED_WICKPROJECT_DATA =', '') // remove opening
-    .replace(/\s/g, '') // remove whitespace
+    .trim() // remove whitespace
     .replace(';', '') // remove ending semicolon
   const result = await (await fetch(`data:application/zip;base64,${INJECTED_WICKPROJECT_DATA}`)).blob()
   return result
