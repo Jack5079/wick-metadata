@@ -50,8 +50,8 @@ class Project {
   /**
    * Wick Editor projects -> {...}
    *
-   * @param {String|Blob} .wick, .html, or .zip
-   * @returns {Object} Project data
+   * @param {Blob} .wick, .html, or .zip
+   * @returns {Project} Project data
    */
   constructor (file) {
     if (!(file instanceof File)) throw new Error('Must be a File!')
