@@ -1,7 +1,8 @@
 /* global Blob, File, fetch */
-const html = /<[a-z][\s\S]*>/i // html regex
+// html regex
 /** @requires ZipLoader */
 import ZipLoader from 'https://cdn.pika.dev/zip-loader'
+const html = /<[a-z][\s\S]*>/i
 
 /**
  * .wick -> {...}
