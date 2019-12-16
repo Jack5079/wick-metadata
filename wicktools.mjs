@@ -1,4 +1,5 @@
 /* global Blob, File, fetch */
+const html = /<[a-z][\s\S]*>/i // html regex
 /** @requires ZipLoader */
 import ZipLoader from 'https://cdn.pika.dev/zip-loader'
 
@@ -30,7 +31,9 @@ async function htmlobj (text) {
     .replace('window.INJECTED_WICKPROJECT_DATA =', '') // remove opening
     .trim() // remove whitespace
     .replace(';', '') // remove ending semicolon
-  const result = await (await fetch(`data:application/zip;base64,${INJECTED_WICKPROJECT_DATA}`)).blob()
+  const result = await (
+    await fetch(`data:application/zip;base64,${INJECTED_WICKPROJECT_DATA}`)
+  ).blob()
   return result
 }
 
@@ -55,26 +58,40 @@ class Project {
    */
   constructor (file) {
     if (!(file instanceof File)) throw new Error('Must be a File!')
-
     return (async () => {
-      if (file.type === 'application/x-zip-compressed') { // For .zip
-        return Object.setPrototypeOf( // Add prototype to JSON
-          await wick( // Convert wick to JSON
+      if (file.type === 'application/x-zip-compressed') {
+        // For .zip
+        return Object.setPrototypeOf(
+          // Add prototype to JSON
+          await wick(
+            // Convert wick to JSON
             await zip(file) // Convert .zip to .wick
-          ), Project.prototype)
+          ),
+          Project.prototype
+        )
       }
-      if (file.name.endsWith('.wick')) { // For .wick
-        return Object.setPrototypeOf( // Add prototype to JSON
-          await wick(file) // Convert .wick to JSON
-        , Project.prototype)
+      if (file.name.endsWith('.wick')) {
+        // For .wick
+        return Object.setPrototypeOf(
+          // Add prototype to JSON
+          await wick(file), // Convert .wick to JSON
+          Project.prototype
+        )
       }
-      if (file.type === 'text/html') { // For .html
-        return Object.setPrototypeOf( // Add prototype to JSON
-          await wick( // Convert wick to JSON
-            await htmlobj( // Convert HTML text to .wick
+      const text = await file.text()
+      if (html.test(text)) {
+        // If it's HTML
+        return Object.setPrototypeOf(
+          // Add prototype to JSON
+          await wick(
+            // Convert wick to JSON
+            await htmlobj(
+              // Convert HTML text to .wick
               await file.text() // convert blob to html text
             )
-          ), Project.prototype)
+          ),
+          Project.prototype
+        )
       }
       throw new Error('Must be a .zip, .wick, or .html!')
     })()
