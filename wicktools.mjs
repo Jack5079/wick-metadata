@@ -82,7 +82,7 @@ class Project {
       }
       const text = await file.text()
       if (html.test(text)) {
-        // If it's HTML
+        // If it has HTML tags
         // Add prototype to JSON
         return Object.setPrototypeOf(
           // Convert wick to JSON
