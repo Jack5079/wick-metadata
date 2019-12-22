@@ -17,11 +17,6 @@ ul {
   margin: 0.2em;
 }
 
-#projects p {
-  mix-blend-mode: difference;
-  color: black;
-}
-
 #placeholder {
   opacity: 0.5;
   font-style: italic;

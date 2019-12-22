@@ -1,12 +1,14 @@
-import Project from './wicktools.mjs'
-
+/* global Worker */
 const file = document.getElementById('import')
-
+const worker = new Worker('worker.mjs', { type: 'module' })
 file.addEventListener('change', () => {
-  if (document.getElementById('placeholder')) document.getElementById('placeholder').remove()
+  if (document.getElementById('placeholder')) {
+    document.getElementById('placeholder').remove()
+  }
   const projects = [...file.files]
-  projects.forEach(async blob => {
-    const project = await new Project(blob) // Load it
+  projects.forEach(blob => worker.postMessage(blob))
+  worker.addEventListener('message', event => {
+    const project = event.data
     console.log(project) // Log it for later
     // Now, for displaying this data:
 
@@ -15,14 +17,21 @@ file.addEventListener('change', () => {
   ${project.name} is ${project.width}x${project.height} and runs at ${project.framerate} FPS
   It was also made on ${project.metadata.platform.description}`
 
-    info.style.backgroundColor = project.backgroundColor // Change the website's background to match the project's background
+    info.style.backgroundColor = 'white' // Change the website's background to match the project's background
+    info.style.color = 'black'
 
     info.style.display = 'inline' // so it isn't big
 
     const button = document.createElement('button') // make a button
     button.innerText = 'Redownload' // set some text
-    button.addEventListener('click', _ => { // on click
-      project.download()
+    button.addEventListener('click', _ => {
+      const link = document.createElement('a')
+      link.href = URL.createObjectURL(project.file)
+      link.download = project.name + '.wick'
+      link.style.display = 'none'
+      document.body.appendChild(link)
+      link.click()
+      URL.revokeObjectURL(link.href)
     })
     document.getElementById('projects').appendChild(info)
 
