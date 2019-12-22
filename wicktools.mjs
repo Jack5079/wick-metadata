@@ -8,7 +8,7 @@ const html = /<[a-z][\s\S]*>/i
  * .wick -> {...}
  *
  * @param {Blob|File} file A .wick file
- * @returns {Object} JSON of the project
+ * @returns {Promise<Object>} JSON of the project
  */
 async function wick (file) {
   const zip = await ZipLoader.unzip(file) // Unzip it
@@ -21,7 +21,7 @@ async function wick (file) {
  * .html -> .wick
  *
  * @param {String} text The .html string to get the JSON from
- * @returns {Blob} .wick Blob
+ * @returns {Promise<Blob>} .wick Blob
  */
 async function htmlobj (text) {
   const INJECTED_WICKPROJECT_DATA = text
@@ -42,7 +42,7 @@ async function htmlobj (text) {
  * .zip -> .wick
  *
  * @param {Blob|File} file The .zip to get the JSON from
- * @returns {Blob} .wick Blob
+ * @returns {Promise<Blob>} .wick Blob
  */
 async function zip (file) {
   const buffer = (await ZipLoader.unzip(file)).files['project.wick'].buffer
@@ -55,7 +55,8 @@ class Project {
    * Wick Editor projects -> {...}
    *
    * @param {File} .wick, .html, or .zip
-   * @returns {Project} Project data
+   * @returns {Promise<Project>} Project data
+   * @async
    */
   constructor (file) {
     if (!(file instanceof File)) throw new Error('Must be a File!')
