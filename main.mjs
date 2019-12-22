@@ -15,7 +15,8 @@ file.addEventListener('change', () => {
     const info = document.createElement('p') // This will have most of the info
     info.innerText = `
   ${project.name} is ${project.width}x${project.height} and runs at ${project.framerate} FPS
-  It was also made on ${project.metadata.platform.description}`
+  It was also made on ${project.metadata.platform.description}
+  The background color was ${project.backgroundColor}`
 
     info.style.backgroundColor = 'white' // Change the website's background to match the project's background
     info.style.color = 'black'
