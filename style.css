@@ -1,10 +1,14 @@
+/* #placeholder gets deleted upon uploading a project */
+
 #placeholder {
   opacity: 0.5;
   font-style: italic;
   color: white !important;
 }
 
-.col {
+/* Used for the FAQ */
+
+body details section {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -13,10 +17,17 @@
   margin-bottom: 1em;
 }
 
+/* Just a bit bigger */
+
 button {
   font-size: larger;
   font-weight: bolder;
 }
+
+/* 
+  Styling the results
+  The border color is added per-project with JavaScript
+*/
 
 article {
   background: darkslategray;
@@ -38,6 +49,8 @@ summary::-webkit-details-marker {
   display: none;
 }
 
+/* Custom arrow */
+
 summary::before {
   content: '🤔';
   border-radius: 1em;
@@ -54,6 +67,8 @@ details[open]>summary::before {
   padding: 0;
   background: transparent
 }
+
+/* Better links */
 
 a {
   color: skyblue;
