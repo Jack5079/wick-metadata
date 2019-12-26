@@ -12,14 +12,7 @@ file.addEventListener('change', () => {
     console.log(project) // Log it for later
     // Now, for displaying this data:
     const holder = document.createElement('article')
-    holder.style = `
-      background: darkslategray;
-      display: inline-block;
-      padding: 1em;
-      margin: 1em;
-      border-radius: 1em;
-      border: 0.5em ${project.backgroundColor} solid; 
-    `
+    holder.style.borderColor = project.backgroundColor
     const header = document.createElement('h3')
     header.innerText = project.name
     const res = document.createElement('abbr')

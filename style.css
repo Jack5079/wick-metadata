@@ -17,3 +17,12 @@ button {
   font-size: larger;
   font-weight: bolder;
 }
+
+article {
+  background: darkslategray;
+  display: inline-block;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 1em;
+  border: 0.5em transparent solid;
+}
