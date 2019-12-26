@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" />
     <title>Wick Editor Metadata Viewer</title>
 
     <!-- The style -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jack5079/jack.css@master/jack.css">
-    <link rel="stylesheet" href="style.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Jack5079/jack.css@master/jack.css"
+    />
+    <link rel="stylesheet" href="style.css" />
 
     <!-- Import some scripts -->
     <script src="./main.mjs" type="module" defer></script>
@@ -26,13 +28,21 @@
       <li>The OS that the browser was ran on</li>
       <li>The background color</li>
     </ul>
-    <br>
+    <br />
     <p>Also you can redownload it as a .wick (Good for .zip/.html files)</p>
     <label for="import">
-      upload
-      <input type="file" id="import" accept=".wick, application/x-zip-compressed, text/html" name="import" multiple>
+      <button onclick="document.querySelector('#import').click()">
+        upload
+      </button>
+      <input
+        type="file"
+        id="import"
+        accept=".wick, application/x-zip-compressed, text/html"
+        name="import"
+        multiple
+        hidden
+      />
     </label>
-
 
     <div id="projects">
       <h3>Project data:</h3>
@@ -40,5 +50,4 @@
     </div>
     <footer>by Jack5079</footer>
   </body>
-
 </html>
