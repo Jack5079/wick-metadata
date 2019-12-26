@@ -37,6 +37,6 @@ file.addEventListener('change', () => {
 })
 
 document.body.addEventListener('drop', event => {
-  const projects = [...file.files]
+  const projects = [...event.dataTransfer.files]
   addProjects(projects)
 })
