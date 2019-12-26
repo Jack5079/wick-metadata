@@ -22,17 +22,18 @@ file.addEventListener('change', () => {
     `
     const header = document.createElement('h3')
     header.innerText = project.name
+    const res = document.createElement('abbr')
+    res.innerText = project.height + 'p'
+    res.title = `${project.width}x${project.height}`
     const info = document.createElement('p') // This will have most of the info
-    info.innerText = `
-  ${project.height}p
-  ${project.framerate} FPS
+    info.innerText = `${project.framerate} FPS
   Platform: ${project.metadata.platform.description}`
 
     const button = document.createElement('button') // make a button
-    button.innerText = 'Redownload' // set some text
+    button.innerText = '💾' // set some text
     button.addEventListener('click', project.download.bind(project))
     holder.appendChild(header)
-
+    holder.appendChild(res)
     holder.appendChild(info)
 
     holder.appendChild(button)
