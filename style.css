@@ -4,11 +4,6 @@
   color: white !important;
 }
 
-fieldset {
-  display: inline-block;
-  height: 100%;
-}
-
 #info {
   display: flex;
   flex-wrap: wrap;
