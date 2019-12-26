@@ -35,8 +35,17 @@ file.addEventListener('change', () => {
   const projects = [...file.files]
   addProjects(projects)
 })
+document.querySelector('head').addEventListener('dragover', event => {
+  event.preventDefault()
+  event.dataTransfer.dropEffect = 'none'
+})
 
-document.body.addEventListener('drop', event => {
+document.querySelector('body').addEventListener('drop', event => {
+  event.preventDefault()
   const projects = [...event.dataTransfer.files]
   addProjects(projects)
+})
+document.querySelector('body').addEventListener('dragover', event => {
+  event.preventDefault()
+  event.dataTransfer.dropEffect = 'copy'
 })
