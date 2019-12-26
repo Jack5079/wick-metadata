@@ -56,13 +56,13 @@ summary::before {
   border-radius: 1em;
   padding: 0.3em;
   margin-right: 0.3em;
-  background: white;
-  color: black;
+  background: black;
+  color: white;
   transition: background 1s, padding 1s, color 1s;
 }
 
 details[open]>summary::before {
-  color: white;
+  color: black;
   content: '↓';
   padding: 0;
   background: transparent
@@ -71,6 +71,22 @@ details[open]>summary::before {
 /* Better links */
 
 a {
-  color: skyblue;
+  color: blue;
   text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  a {
+    color: skyblue
+  }
+  summary::before {
+    color: black;
+    background: white
+  }
+  details[open]>summary::before {
+    color: white;
+    content: '↓';
+    padding: 0;
+    background: transparent
+  }
 }
