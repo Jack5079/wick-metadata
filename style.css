@@ -8,7 +8,7 @@
 
 /* Used for the FAQ */
 
-body details section {
+body details section, label>div {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
