@@ -26,3 +26,31 @@ article {
   border-radius: 1em;
   border: 0.5em transparent solid;
 }
+
+/* According to https: //developer.mozilla.org/en-US/docs/Web/HTML/Element/details#Customizing_the_disclosure_widget */
+
+summary {
+  list-style: none;
+  text-align: center;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::before {
+  content: '🤔';
+  border-radius: 1em;
+  padding: 0.3em;
+  margin-right: 0.3em;
+  background: white;
+  color: black;
+  transition: background 1s, padding 1s, color 1s;
+}
+
+details[open]>summary::before {
+  color: white;
+  content: '↓';
+  padding: 0;
+  background: transparent
+}
