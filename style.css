@@ -3,3 +3,16 @@
   font-style: italic;
   color: white !important;
 }
+
+fieldset {
+  display: inline-block;
+  height: 100%;
+}
+
+#info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100%;
+  max-width: 100%
+}

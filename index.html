@@ -19,17 +19,30 @@
 
   <body>
     <h1>.wick metadata viewer</h1>
-    <p>Get info about Wick Editor projects, like:</p>
-    <ul>
-      <li>The project's name</li>
-      <li>The resolution</li>
-      <li>A framerate</li>
-      <li>The browser used to save it</li>
-      <li>The OS that the browser was ran on</li>
-      <li>The background color</li>
-    </ul>
-    <br />
-    <p>Also you can redownload it as a .wick (Good for .zip/.html files)</p>
+    <section id="info">
+      <fieldset>
+        <legend>Data you can get from this</legend>
+        <ul>
+          <li>The project's name</li>
+          <li>The resolution</li>
+          <li>A framerate</li>
+          <li>The browser used to save it</li>
+          <li>The OS that the browser was ran on</li>
+          <li>The background color</li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>Supported file formats</legend>
+        <ul>
+          <li>.wick files</li>
+          <li>Exported .zip</li>
+          <li>Exported .html</li>
+        </ul>
+      </fieldset>
+    </section>
+
+    <p>Supported features</p>
     <label for="import">
       <button onclick="document.querySelector('#import').click()">
         upload
