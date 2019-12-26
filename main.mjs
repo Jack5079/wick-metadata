@@ -1,13 +1,8 @@
 import Project from './wicktools.mjs'
 
 const file = document.getElementById('import')
-
-file.addEventListener('change', () => {
-  if (document.getElementById('placeholder')) {
-    document.getElementById('placeholder').remove()
-  }
-  const projects = [...file.files]
-  projects.forEach(async element => {
+function addProjects (array) {
+  array.forEach(async element => {
     const project = await new Project(element)
     console.log(project) // Log it for later
     // Now, for displaying this data:
@@ -32,4 +27,16 @@ file.addEventListener('change', () => {
     holder.appendChild(button)
     document.getElementById('projects').appendChild(holder)
   })
+}
+file.addEventListener('change', () => {
+  if (document.getElementById('placeholder')) {
+    document.getElementById('placeholder').remove()
+  }
+  const projects = [...file.files]
+  addProjects(projects)
+})
+
+document.body.addEventListener('drop', event => {
+  const projects = [...file.files]
+  addProjects(projects)
 })
