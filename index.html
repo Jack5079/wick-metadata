@@ -19,32 +19,12 @@
 
   <body>
     <h1>Wick Editor metadata viewer</h1>
-    <section id="info">
-      <fieldset>
-        <legend>Data you can get from this</legend>
-        <ul>
-          <li>The project's name</li>
-          <li>The resolution</li>
-          <li>A framerate</li>
-          <li>The browser used to save it</li>
-          <li>The OS that the browser was ran on</li>
-          <li>The background color (Border color)</li>
-        </ul>
-      </fieldset>
-
-      <fieldset>
-        <legend>Supported file formats</legend>
-        <ul>
-          <li>.wick files</li>
-          <li>Exported .zip</li>
-          <li>Exported .html</li>
-        </ul>
-      </fieldset>
-    </section>
     <label for="import">
-      <button onclick="document.querySelector('#import').click()">
-        upload
-      </button>
+      <div class="col">
+        <button onclick="document.querySelector('#import').click()">
+          upload
+        </button>
+      </div>
       <input
         type="file"
         id="import"
@@ -54,6 +34,27 @@
         hidden
       />
     </label>
+    <details>
+      <summary>FAQ</summary>
+      <section class="col">
+        <details>
+          <summary>What data you can get from this?</summary>
+          <p>In order of appearance from top to bottom:</p>
+          <ol>
+            <li>The background color (Border color)</li>
+            <li>The project's name</li>
+            <li>The resolution</li>
+            <li>A framerate</li>
+            <li>The browser and OS used to save the project</li>
+          </ol>
+        </details>
+
+        <details>
+          <summary>What files are supported?</summary>
+          Any Wick Editor projects made in 1.0 or greater
+        </details>
+      </section>
+    </details>
 
     <div id="projects">
       <h2>Project data:</h2>
