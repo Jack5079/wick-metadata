@@ -22,7 +22,7 @@ async function wick (file) {
  *
  * @author Jack5079
  * @param {String} text Some text.
- * @returns {Blob} A .wick file.
+ * @returns {Promise<Blob>} A .wick file.
  */
 async function html2wick (text) {
   // Convert the fetch to a blob
@@ -45,7 +45,7 @@ async function html2wick (text) {
  *
  * @author Jack5079
  * @param {Blob} file A .zip file.
- * @returns {Blob} A .wick file.
+ * @returns {Promise<Blob>} A .wick file.
  */
 
 const zip = async file =>
