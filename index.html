@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wick Editor Metadata Viewer</title>
 
     <!-- The style -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/Jack5079/jack.css@master/jack.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jack5079/jack.css@master/jack.css" />
     <link rel="stylesheet" href="style.css" />
     <!-- Import some scripts -->
     <script src="./main.mjs" type="module" defer></script>
@@ -26,14 +24,8 @@
           </label>
         </button>
       </div>
-      <input
-        type="file"
-        id="import"
-        accept=".wick, application/x-zip-compressed, text/html"
-        name="import"
-        multiple
-        hidden
-      />
+      <input type="file" id="import" accept=".wick, application/x-zip-compressed, text/html" name="import" multiple
+        hidden />
     </label>
     <section id="projects">
       <h2>Project data:</h2>
@@ -70,18 +62,13 @@
 
         <p>
           This data was added to the project.json format in commit
-          <code>34418df</code
-          ><a
-            href="https://github.com/Wicklets/wick-editor/blame/8e9768d/engine/src/export/wick/WickFile.js#L31"
-            ><sup>[1]</sup></a
-          >.
+          <code>34418df</code><a
+            href="https://github.com/Wicklets/wick-editor/blame/8e9768d/engine/src/export/wick/WickFile.js#L31"><sup>[1]</sup></a>.
         </p>
 
         <p>
           Apparently, this was added for "debugging wick projects."<a
-            href="https://github.com/Wicklets/wick-editor/blob/8e9768d/engine/src/export/wick/WickFile.js#L25"
-            ><sup>[2]</sup></a
-          >
+            href="https://github.com/Wicklets/wick-editor/blob/8e9768d/engine/src/export/wick/WickFile.js#L25"><sup>[2]</sup></a>
         </p>
       </details>
 
@@ -91,6 +78,16 @@
           <a href="https://jack5079.github.io">Hi! I'm Jack.</a>
         </p>
       </details>
+
+      <details>
+        <summary>Why?</summary>
+        <p>
+          You can't import .html Wick Editor projects in Wick Editor. <br>
+          I also found out you can get the user agent from Wick Editor metadata (see "How do you get the OS and browser
+          info?"), and I thought a tool for displaying this data would be nice.
+        </p>
+      </details>
     </details>
   </body>
+
 </html>
