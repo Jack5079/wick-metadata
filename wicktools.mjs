@@ -17,6 +17,27 @@ async function wick (file) {
   return project
 }
 
+async function html2wick (text) {
+  return (
+    // Convert the fetch to a blob
+    (
+      await fetch(
+        // Fetch the resulting base64
+        'data:application/zip;base64,' +
+          text
+            .split('\n') // array of lines
+            .find(line => line.includes('INJECTED_WICKPROJECT_DATA')) // only the line of code we want
+            // Now for stripping it down to only the data
+            .replace("window.INJECTED_WICKPROJECT_DATA = '", '') // remove opening
+            .replace("';", '') // remove ending
+      )
+    ).blob()
+  )
+}
+
+const zip = async file =>
+  new Blob([(await ZipLoader.unzip(file)).files['project.wick'].buffer]) // Convert .zip to .wick
+
 export default class {
   /**
    * Wick Editor projects -> {...}
@@ -33,11 +54,7 @@ export default class {
         // Add prototype to JSON
         return Object.setPrototypeOf(
           // Convert wick to JSON
-          await wick(
-            new Blob([
-              (await ZipLoader.unzip(file)).files['project.wick'].buffer
-            ]) // Convert .zip to .wick
-          ),
+          await wick(await zip(file)),
           this.constructor.prototype
         )
       }
@@ -55,21 +72,7 @@ export default class {
         // Add prototype to JSON
         return Object.setPrototypeOf(
           // Convert wick to JSON
-          await wick(
-            await // Convert the fetch to a blob
-            (
-              await fetch(
-                // Fetch the resulting base64
-                'data:application/zip;base64,' +
-                  text
-                    .split('\n') // array of lines
-                    .find(line => line.includes('INJECTED_WICKPROJECT_DATA')) // only the line of code we want
-                    // Now for stripping it down to only the data
-                    .replace("window.INJECTED_WICKPROJECT_DATA = '", '') // remove opening
-                    .replace("';", '') // remove ending
-              )
-            ).blob()
-          ),
+          await wick(await html2wick(text)),
           this.constructor.prototype
         )
       }
