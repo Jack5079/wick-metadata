@@ -7,13 +7,13 @@
 
 /* Used for the FAQ */
 
-body details section, label>div {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 1em;
+details section details {
+  margin: 1em;
+  text-align: left;
+}
+
+label {
+  text-align: center;
 }
 
 /* Just a bit bigger */
