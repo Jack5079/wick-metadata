@@ -1,9 +1,8 @@
 /* #placeholder gets deleted upon uploading a project */
 
 #placeholder {
-  opacity: 0.5;
   font-style: italic;
-  color: white !important;
+  color: gray 
 }
 
 /* Used for the FAQ */
