@@ -18,21 +18,19 @@ async function wick (file) {
 }
 
 async function html2wick (text) {
+  // Convert the fetch to a blob
   return (
-    // Convert the fetch to a blob
-    (
-      await fetch(
-        // Fetch the resulting base64
-        'data:application/zip;base64,' +
-          text
-            .split('\n') // array of lines
-            .find(line => line.includes('INJECTED_WICKPROJECT_DATA')) // only the line of code we want
-            // Now for stripping it down to only the data
-            .replace("window.INJECTED_WICKPROJECT_DATA = '", '') // remove opening
-            .replace("';", '') // remove ending
-      )
-    ).blob()
-  )
+    await fetch(
+      // Fetch the resulting base64
+      'data:application/zip;base64,' +
+        text
+          .split('\n') // array of lines
+          .find(line => line.includes('INJECTED_WICKPROJECT_DATA')) // only the line of code we want
+          // Now for stripping it down to only the data
+          .replace("window.INJECTED_WICKPROJECT_DATA = '", '') // remove opening
+          .replace("';", '') // remove ending
+    )
+  ).blob()
 }
 
 const zip = async file =>
