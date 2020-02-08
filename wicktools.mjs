@@ -17,6 +17,13 @@ async function wick (file) {
   return project
 }
 
+/**
+ *
+ *
+ * @author Jack5079
+ * @param {String} text Some text.
+ * @returns {Blob} A .wick file.
+ */
 async function html2wick (text) {
   // Convert the fetch to a blob
   return (
@@ -32,6 +39,14 @@ async function html2wick (text) {
     )
   ).blob()
 }
+
+/**
+ *
+ *
+ * @author Jack5079
+ * @param {Blob} file A .zip file.
+ * @returns {Blob} A .wick file.
+ */
 
 const zip = async file =>
   new Blob([(await ZipLoader.unzip(file)).files['project.wick'].buffer]) // Convert .zip to .wick
