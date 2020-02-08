@@ -22,7 +22,7 @@ async function addProject (proj) {
   Platform: ${project.metadata.platform.description}`
 
     const button = document.createElement('button') // make a button
-    button.innerText = '💾' // set some text
+    button.innerText = '💾 Download' // set some text
     button.addEventListener('click', project.download.bind(project))
     holder.appendChild(header)
     holder.appendChild(res)
