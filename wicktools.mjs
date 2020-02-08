@@ -65,10 +65,8 @@ export default class {
                     .split('\n') // array of lines
                     .find(line => line.includes('INJECTED_WICKPROJECT_DATA')) // only the line of code we want
                     // Now for stripping it down to only the data
-                    .replace(/'/g, '') // remove quotes
-                    .replace('window.INJECTED_WICKPROJECT_DATA =', '') // remove opening
-                    .trim() // remove whitespace
-                    .replace(';', '') // remove ending semicolon
+                    .replace("window.INJECTED_WICKPROJECT_DATA = '", '') // remove opening
+                    .replace("';", '') // remove ending
               )
             ).blob()
           ),
