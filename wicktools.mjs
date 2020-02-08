@@ -17,40 +17,7 @@ async function wick (file) {
   return project
 }
 
-/**
- * .html -> .wick
- *
- * @param {String} text The .html string to get the JSON from
- * @returns {Promise<Blob>} .wick Blob
- */
-async function htmlobj (text) {
-  const INJECTED_WICKPROJECT_DATA = text
-    .split('\n') // array of lines
-    .find(line => line.includes('INJECTED_WICKPROJECT_DATA')) // only the line of code we want
-    // Now for stripping it down to only the data
-    .replace(/'/g, '') // remove quotes
-    .replace('window.INJECTED_WICKPROJECT_DATA =', '') // remove opening
-    .trim() // remove whitespace
-    .replace(';', '') // remove ending semicolon
-  const result = await (
-    await fetch(`data:application/zip;base64,${INJECTED_WICKPROJECT_DATA}`)
-  ).blob()
-  return result
-}
-
-/**
- * .zip -> .wick
- *
- * @param {Blob|File} file The .zip to get the JSON from
- * @returns {Promise<Blob>} .wick Blob
- */
-async function zip (file) {
-  const buffer = (await ZipLoader.unzip(file)).files['project.wick'].buffer
-  const wickfile = new Blob([buffer])
-  return wickfile
-}
-
-class Project {
+export default class {
   /**
    * Wick Editor projects -> {...}
    *
@@ -67,9 +34,11 @@ class Project {
         return Object.setPrototypeOf(
           // Convert wick to JSON
           await wick(
-            await zip(file) // Convert .zip to .wick
+            new Blob([
+              (await ZipLoader.unzip(file)).files['project.wick'].buffer
+            ]) // Convert .zip to .wick
           ),
-          Project.prototype
+          this.constructor.prototype
         )
       }
       if (file.name.endsWith('.wick')) {
@@ -77,7 +46,7 @@ class Project {
         // Add prototype to JSON
         return Object.setPrototypeOf(
           await wick(file), // Convert .wick to JSON
-          Project.prototype
+          this.constructor.prototype
         )
       }
       const text = await file.text()
@@ -87,12 +56,23 @@ class Project {
         return Object.setPrototypeOf(
           // Convert wick to JSON
           await wick(
-            // Convert HTML text to .wick
-            await htmlobj(
-              await file.text() // convert blob to html text
-            )
+            await // Convert the fetch to a blob
+            (
+              await fetch(
+                // Fetch the resulting base64
+                'data:application/zip;base64,' +
+                  text
+                    .split('\n') // array of lines
+                    .find(line => line.includes('INJECTED_WICKPROJECT_DATA')) // only the line of code we want
+                    // Now for stripping it down to only the data
+                    .replace(/'/g, '') // remove quotes
+                    .replace('window.INJECTED_WICKPROJECT_DATA =', '') // remove opening
+                    .trim() // remove whitespace
+                    .replace(';', '') // remove ending semicolon
+              )
+            ).blob()
           ),
-          Project.prototype
+          this.constructor.prototype
         )
       }
       throw new Error('Must be a .zip, .wick, or .html!')
@@ -109,5 +89,3 @@ class Project {
     URL.revokeObjectURL(link.href)
   }
 }
-
-export default Project
