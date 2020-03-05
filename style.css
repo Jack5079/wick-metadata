@@ -1,10 +1,10 @@
-/* #placeholder gets deleted upon uploading a project */
-
-#placeholder {
-  color: gray
-}
-
 /* Used for the FAQ */
+
+#projects:empty::after {
+  color: gray;
+  font-style: italic;
+  content: 'Please upload a project!';
+}
 
 #faq details {
   margin: 1em;

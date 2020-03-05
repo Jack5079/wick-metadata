@@ -34,9 +34,6 @@ async function addProject (proj) {
 }
 
 document.getElementById('import').addEventListener('change', event => {
-  if (document.getElementById('placeholder')) {
-    document.getElementById('placeholder').remove()
-  }
   const projects = [...event.currentTarget.files]
   projects.forEach(addProject)
 })
