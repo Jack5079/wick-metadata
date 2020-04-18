@@ -88,3 +88,7 @@ a {
     background: transparent
   }
 }
+
+[hidden] {
+  display: none !important;
+}
